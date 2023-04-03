@@ -750,17 +750,20 @@ class MixMIMSwinTransformerCLS(BaseBackbone):
                     param.requires_grad = False
 
     def init_weights(self):
-        super().init_weights()
-        if self.use_abs_pos_embed:
-            trunc_normal_(self.absolute_pos_embed, std=0.02)
-        for m in self.modules():
-            if isinstance(m, Linear):
-                trunc_normal_(m.weight, std=.02)
-                if m.bias is not None:
+        if self.init_cfg is not None:
+            super().init_weights()
+        else:
+            super().init_weights()
+            if self.use_abs_pos_embed:
+                trunc_normal_(self.absolute_pos_embed, std=0.02)
+            for m in self.modules():
+                if isinstance(m, Linear):
+                    trunc_normal_(m.weight, std=.02)
+                    if m.bias is not None:
+                        nn.init.constant_(m.bias, 0)
+                elif isinstance(m, LayerNorm):
                     nn.init.constant_(m.bias, 0)
-            elif isinstance(m, LayerNorm):
-                nn.init.constant_(m.bias, 0)
-                nn.init.constant_(m.weight, 1.0)
+                    nn.init.constant_(m.weight, 1.0)
 
     def random_masking(self, x: torch.Tensor, mask_ratio: float = 0.5):
         """Generate the mask for MixMIM Pretraining.
