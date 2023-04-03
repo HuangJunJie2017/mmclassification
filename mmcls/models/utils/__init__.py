@@ -5,7 +5,8 @@ from .attention import (BEiTAttention, ChannelMultiheadAttention, LeAttention,
 from .batch_augments import CutMix, Mixup, RandomBatchAugment, ResizeMix
 from .channel_shuffle import channel_shuffle
 from .data_preprocessor import ClsDataPreprocessor
-from .embed import (HybridEmbed, PatchEmbed, PatchMerging, resize_pos_embed,
+from .embed import (HybridEmbed, PatchEmbed, PatchEmbedv1, PatchMerging,
+                    resize_pos_embed,
                     resize_relative_position_bias_table)
 from .helpers import is_tracing, to_2tuple, to_3tuple, to_4tuple, to_ntuple
 from .inverted_residual import InvertedResidual
@@ -23,5 +24,5 @@ __all__ = [
     'resize_pos_embed', 'resize_relative_position_bias_table',
     'ClsDataPreprocessor', 'Mixup', 'CutMix', 'ResizeMix', 'BEiTAttention',
     'LayerScale', 'WindowMSA', 'WindowMSAV2', 'ChannelMultiheadAttention',
-    'PositionEncodingFourier', 'LeAttention'
+    'PositionEncodingFourier', 'LeAttention', 'PatchEmbedv1'
 ]
