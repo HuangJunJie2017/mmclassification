@@ -751,9 +751,10 @@ class MixMIMSwinTransformerCLS(BaseBackbone):
 
     def init_weights(self):
         if self.init_cfg is not None:
+            print('init_from pretrain')
             super().init_weights()
         else:
-            super().init_weights()
+            print('init_from random')
             if self.use_abs_pos_embed:
                 trunc_normal_(self.absolute_pos_embed, std=0.02)
             for m in self.modules():
